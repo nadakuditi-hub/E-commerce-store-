@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Cart</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="cart.html">Cart</a>
+    <a href="login.html">Login</a>
+    <a href="register.html">Register</a>
+</div>
+
+<h1>My Cart</h1>
+
+<div id="cartItems"></div>
+<button onclick="placeOrder()">Place Order</button>
+
+<script>
+function placeOrder() {
+    alert("Order placed successfully!");
+
+    localStorage.removeItem("cart");
+
+    window.location.reload();
+}
+</script>
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+let output = "";
+let total = 0;
+
+cart.forEach((item,index) => {
+    output += `
+    <p>
+        ${item.name} - ₹${item.price}
+        <button onclick="removeItem(${index})">Remove</button>
+    </p>
+    `;
+
+    total += item.price;
+});
+
+output += `<h3>Total: ₹${total}</h3>`;
+
+document.getElementById("cartItems").innerHTML = output;
+
+function removeItem(index){
+    cart.splice(index,1);
+
+    localStorage.setItem("cart",JSON.stringify(cart));
+
+    location.reload();
+}
+
+</script>
+<footer>
+    <p>© 2026 My Online Store. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
