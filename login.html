@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="firebase.js"></script>
+  </head>
+<body>
+<div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="cart.html">Cart</a>
+    <a href="login.html">Login</a>
+    <a href="register.html">Register</a>
+</div>
+
+<h1>Login</h1>
+
+<input type="email"  id="email" placeholder="Enter Email"><br><br>
+
+<input type="password"  id="password" placeholder="Enter Password"><br><br>
+
+<button onclick="login()">Login</button>
+
+<br><br>
+
+<a href="register.html">Create New Account</a>
+
+<script type="module">
+
+import { auth } from "./firebase.js";
+import { signInWithEmailAndPassword }
+from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+
+window.login = function() {
+
+    let email =
+    document.getElementById("email").value;
+
+    let password =
+    document.getElementById("password").value;
+
+    signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+    )
+    .then((userCredential) => {
+
+        alert("Login Successful");
+
+        window.location.href =
+        "index.html";
+
+    })
+    .catch((error) => {
+
+        alert(error.message);
+
+    });
+
+}
+
+</script>
+<footer>
+    <p>© 2026 My Online Store. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
